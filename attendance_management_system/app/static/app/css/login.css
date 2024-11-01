@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Light gray background for the right side */
+}
+.left-container {
+    background: radial-gradient(circle at top left, #0f2d21, #16392a, #1b4b33, #1d5c3c, #1f6e46); /* Gradient */
+    height: 96vh;
+    width: 50%;
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 30px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 1%;
+}
+.right-container {
+    width: 50%;
+    padding: 10px;
+}
+.login-container {
+    max-width: 400px;
+    margin: auto;
+}
+.login-container h2 {
+    margin-bottom: 20px;
+    padding-left: 80px;
+}
+.btn-google {
+    display: block;
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #444;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px; 
+    border-radius: 10px;
+  
+}
+
+.btn-google img {
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: middle; 
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.logo i {
+    font-size: 18px;
+    margin-right: 10px;
+}
+.d-flex {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.form-check {
+    margin-bottom: 0; 
+}
+
+.d-flex a {
+    font-size: 14px; 
+    color: #035535; 
+    cursor: pointer;
+    font-weight: bold ;
+    padding: 10px;
+}
+
+.d-flex a:hover {
+    text-decoration: underline !important; 
+}
+.form-control{
+    background-color: #e3e3e3;
+    padding:.75rem;
+}
+.btn {
+    --bs-btn-padding-x: 0.75rem;
+    --bs-btn-padding-y: 0.75rem;
+}

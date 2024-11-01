@@ -1,0 +1,7 @@
+<h2>Attendance List</h2>
+<ul>
+    {% for record in attendance_records %}
+        <li>{{ record.user.username }} - {{ record.date }} - {{ record.status }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'create_attendance' %}">Create New Attendance</a>

@@ -1,0 +1,90 @@
+<!-- app/templates/app/user_list.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'app/images/BG.jpg' %}");
+            background-size: cover;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #030000; /* White color for better contrast */
+        }
+        .user-list {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            color: #fff; /* White text for better contrast */
+        }
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #444; /* Darker border */
+        }
+        .user-item:last-child {
+            border-bottom: none;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .user-info h3 {
+            margin: 0;
+            color: #ddd; /* Light gray color for username */
+        }
+        .user-info p {
+            margin: 5px 0;
+            color: #bbb; /* Slightly lighter gray for other info */
+        }
+        .actions {
+            align-self: center;
+        }
+        .actions a {
+            text-decoration: none;
+            color: #3498db; /* Blue color for links */
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>User List</h1>
+<div class="user-list">
+    {% for user in users %}
+    <div class="user-item">
+        <div class="user-info">
+            <h3>{{ user.username }}</h3>
+            <p>Email: {{ user.email }}</p>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Last Name: {{ user.last_name }}</p>
+        </div>
+        <div class="actions">
+            <a href="{% url 'user_update' user.pk %}"><i class="fas fa-edit"></i> Edit</a>
+            <a href="{% url 'user_delete' user.pk %}" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i> Delete</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>No users found.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>

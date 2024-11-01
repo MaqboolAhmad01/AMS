@@ -1,0 +1,225 @@
+ /* General Styling */
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+.side-panel {
+    width: 250px;
+    background-color: #002b20;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.side-panel h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.side-panel ul {
+    list-style: none;
+}
+.side-panel li {
+    margin-bottom: 20px;
+    font-size: larger;
+}
+.side-panel li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+.side-panel li a i {
+    margin-right: 10px;
+}
+.logout-btn {
+    margin-top: auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #004d3b;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+.header {
+    display: flex;
+    justify-content: normal;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.header h1 {
+    font-size: 28px;
+    margin-right: 1250px;
+}
+.header .today-btn {
+    background-color: #d3f4e4;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 30px;
+    
+}
+bi-arrow-right::before {
+        content: "\f138";
+        font-size: 26px;
+    }
+/* Dashboard Sections */
+.dashboard {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.dashboard-card-1 {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width:80vh;
+    height: 30;
+
+}
+.dashboard-card-2 {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 50vh;
+    height: 30vh;
+
+}
+.dashboard-card-1 h2 {
+    color: #004d3b;
+}
+.dashboard-card-2 h2 {
+    color: #004d3b;
+}
+
+
+/* Small Cards Grid */
+.small-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 45vh;
+}
+.small-card {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #004d3b;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+}
+.tabs button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    color: #004d3b;
+}
+.tabs button.active {
+    border-bottom: 2px solid #004d3b;
+    font-weight: bold;
+}
+
+/* Chart Container */
+.chart-container {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 178vh; /* Smaller width */
+    height:55%;
+    margin: 20px ;
+}
+#myChart {
+width: 600px; 
+height: 300px;
+}   
+.custom-play-button {
+    width: 35px;
+    height: 35px;
+    background-color: #3b704d; /* Customize your button color */
+    border: none;
+    border-radius: 50%;
+    color: rgb(249 255 251);
+    font-size: 24px;
+    cursor: pointer;
+    
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-play-button:hover {
+    background-color: #07080a; 
+}
+
+.timer {
+    font-size: 20px;
+    margin-right: 10px; 
+    margin-left: 30px;
+}
+
+       /* Modal Styles */
+       .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background-color: white;
+    padding: 50px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+    height: 200px;
+}
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.modal-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.save-button {
+    background-color: #3b704d;
+    color: white;
+}
+.cancel-button {
+    background-color: #ccc;
+}

@@ -1,0 +1,91 @@
+<!-- app/templates/app/user_form.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Edit User{% else %}Create User{% endif %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url("{% static 'app/images/BG.jpg' %}");
+            background-size: cover;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+            color: #fff; /* White text for better contrast */
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: black; /* Black container color */
+            border: 2px solid white; /* White border for contrast */
+            border-radius: 16px; /* More rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 15px; /* Reduced padding for a more compact vertical size */
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container label {
+            margin-bottom: 5px;
+            color: #ddd; /* Light gray text for labels */
+        }
+        .form-container input,
+        .form-container select,
+        .form-container textarea { /* Added textarea for address */
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #555; /* Gray background for input fields */
+            color: #fff; /* White text for better contrast */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #2980b9;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>{% if form.instance.pk %}Edit User{% else %}Create User{% endif %}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            {% if form.instance.pk %}Update User{% else %}Create User{% endif %}
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<h2>Team List</h2>
+<ul>
+    {% for team in teams %}
+        <li>{{ team.name }} - Room: {{ team.room_number }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'create_team' %}">Create New Team</a>

@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.base-container {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top left, #0f2d21, #16392a, #1b4b33, #1d5c3c, #1f6e46);
+    height: 96vh; /* Full height of the viewport */
+    position: relative; /* Allows positioning of child elements */
+    border-radius: 10px;
+    margin:2vh
+}
+
+.logo {
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    color: aliceblue;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo i {
+    font-size: 18px; /* Set the font size to 18px */
+    width: 18px; /* Set the width */
+    height: 18px; /* Set the height */
+    margin-right: 10px;
+    color: aliceblue;
+    display: inline-block;
+    line-height: 18px; /* Ensure vertical alignment */
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Center the form box horizontally */
+    align-items: center; /* Center the form box vertically */
+    height: 100%; /* Full height to center vertically */
+}
+

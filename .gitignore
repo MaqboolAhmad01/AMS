@@ -1,0 +1,42 @@
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore virtual environment directory
+venv/
+env/
+.venv
+.venv/
+
+# Ignore Django-related files
+db.sqlite3
+/media/
+staticfiles/
+migrations/
+
+# Ignore IDE and editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore logs and runtime files
+*.log
+*.pot
+*.pyc
+*.pyo
+.DS_Store
+
+# Ignore compiled code files
+*.class
+
+# Ignore any other unwanted files
+node_modules/
+coverage/
+*.pid
+*.pdf
+*.sqlite3

@@ -1,0 +1,53 @@
+
+
+h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+    margin-left: 5px;
+
+}
+.form-box {
+    background-color: white;
+    padding: 40px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 380px;
+    height: 290px;
+}
+
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #002b20;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #004d3b;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #004d3b;
+    text-decoration: none;
+    font-weight:bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

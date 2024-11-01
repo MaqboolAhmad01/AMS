@@ -1,0 +1,18 @@
+{% extends 'app/base_reset_password.html' %}
+{%load static%}
+{% block title %}Magic Link Pasword{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'app/css/reset_password.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form-box">
+    <h3>Magic Link Sent</h3>
+    <p>We have sent a magic link to your email.Please click the link in your email to reset your password.</p>
+    <form  method="POST">
+        {% csrf_token %}
+
+        <button type="submit">Check Your Email</button>
+    </form>
+    <a href="{% url 'login' %}" class="back-link">Back to Sign In</a>
+</div>
+{% endblock %}
