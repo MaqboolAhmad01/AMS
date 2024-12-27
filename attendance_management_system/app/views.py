@@ -1,3 +1,4 @@
+import time
 from django.utils import timezone
 from .forms import UserForm, TeamForm, AttendanceForm,SetNewPassword,LoginForm,PasswordResetForm  
 from .models import User, Team, Attendance
@@ -19,7 +20,10 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from allauth.socialaccount.models import SocialApp
 from requests import post,get
 from django.conf import settings
+from datetime import timedelta
 import json
+import calendar
+
 def get_user_info(access_token):
     user_info_response = get(settings.USER_INFO_URL, 
                               headers={'Authorization': f'Bearer {access_token}'})
@@ -127,10 +131,11 @@ class login_view(View):
         form = LoginForm()
     
         return render(request, 'app/login.html', {'form': form}) 
-
+              
 @login_required  
 def dashboard_view(request):
     username = request.user.username 
+    
     return render(request, 'app/dashboard.html',{'username':username}) 
 
 @login_required
@@ -224,7 +229,7 @@ def check_in_view(request):
         
         attendance.save()
 
-        return JsonResponse({'message': 'Check-in successful', 'attendance_id': attendance.id})
+        return JsonResponse({'message': 'Check-in successful', 'attendance_id': attendance.id,'user_id':user.id})
     return JsonResponse({'error': 'Invalid request'}, status=400)
 @login_required
 def check_out_view(request):
@@ -276,6 +281,8 @@ def attendance_view(request,timeframe):
     now = timezone.now()
     current_date = timezone.now().date()
     total_time = 0
+    
+    data={}
 
     if timeframe == 'day':
         attendances = Attendance.objects.filter(user=user,date=current_date)
@@ -283,7 +290,6 @@ def attendance_view(request,timeframe):
             return JsonResponse({"error":"no attendance record found"})
         for attendance in attendances:
             check_in_datetime = timezone.datetime.combine(current_date, attendance.check_in)
-            
             if not attendance.check_out:        
                 total_time = total_time + (now - check_in_datetime).total_seconds()
             else:
@@ -292,11 +298,80 @@ def attendance_view(request,timeframe):
         hours = int(total_time // 3600)
         minutes = int((total_time % 3600) // 60)
         seconds = int(total_time % 60)
-
-
-
         return JsonResponse({'labels': ['today'], 'data': [total_time],'total_time':{'hours':hours,'minutes':minutes,'seconds':seconds}})
-    return JsonResponse({"error":"not day"})
+    elif timeframe == 'week':
+        current_date = timezone.now().date()
+        days = current_date.weekday()
+        start_of_week = current_date - timedelta(days=days)
+        attendances = Attendance.objects.filter(user=user,date__range=(start_of_week,current_date)).order_by('date')
+        for attendance in attendances:
+            check_in_datetime = timezone.datetime.combine(attendance.date, attendance.check_in)
+            if attendance.check_out:
+                
+                check_out_datetime = timezone.datetime.combine(attendance.date, attendance.check_out)
+            else:
+                check_out_datetime = now
+            if attendance.day in data.keys():
+                data[attendance.day] += (check_out_datetime - check_in_datetime).total_seconds()
+            else:
+                data[attendance.day] = (check_out_datetime - check_in_datetime).total_seconds()
+        return JsonResponse(data)
+
+
+    elif timeframe == 'month':
+        data = {}
+        current_date = timezone.now().date()
+        first_day = current_date.replace(day=1)
+        last_day = current_date.replace(day=calendar.monthrange(current_date.year, current_date.month)[1])
+
+        # Initialize dictionary with 0 attendance time for each day in the month
+        all_days_data = {first_day.replace(day=day): 0 for day in range(1, last_day.day + 1)}
+        
+        # Fetch all attendance records for the month
+        attendances = Attendance.objects.filter(user=user, date__range=(first_day, current_date)).order_by('date')
+        
+        # Accumulate attendance time for each record in the same day
+        for attendance in attendances:
+            print(attendance.date)
+            check_in_datetime = timezone.datetime.combine(attendance.date, attendance.check_in)
+            check_out_datetime = timezone.datetime.combine(attendance.date, attendance.check_out) if attendance.check_out else timezone.now()
+            
+            # Add to the existing total for the day
+            all_days_data[attendance.date] += (check_out_datetime - check_in_datetime).total_seconds()
+        
+        # Prepare labels and values
+        labels = [date.strftime('%a')[0] for date in all_days_data.keys()]  # First letter of day name
+        values = list(all_days_data.values())  # Total seconds for each day, or 0 if no records
+
+        # Prepare the result dictionary
+        res = {'labels': labels, 'values': values}
+        print(res)
+        return JsonResponse(res)
+
+    return JsonResponse({"error": "not day"})
+
+@require_GET
+@login_required
+def timer_info(request):
+    user = request.user
+    id = user.id
+    elapsed_seconds= 0
+    current_date = timezone.now().date()
+
+    now = timezone.now()
+    attendance = Attendance.objects.filter(user_id=id,date=current_date).order_by('-check_in').first()
+    if attendance:
+        if attendance.check_in and not attendance.check_out:
+            check_in_datetime = timezone.datetime.combine(current_date, attendance.check_in)
+            elapsed_seconds = (now - check_in_datetime).total_seconds()
+            # if elapsed seconds are more than 9 hours then automatically save current time as checkout time and return "recorded" as message
+            elapsed_seconds_unix = int(time.mktime(check_in_datetime.timetuple()))
+            return JsonResponse({'start_time':elapsed_seconds_unix,'elapsed_seconds': int(elapsed_seconds),'user_id':user.id})
+        else:
+            return JsonResponse({'message':'recorded'})
+    else:
+        return JsonResponse({'message':'timer not inititaited yet'})
+  
 def create_team(request):
     if request.method == 'POST':
         form = TeamForm(request.POST)
@@ -328,3 +403,4 @@ def team_list(request):
 def attendance_list(request):
     attendance_records = Attendance.objects.all()
     return render(request, 'app/attendance_list.html', {'attendance_records': attendance_records})
+

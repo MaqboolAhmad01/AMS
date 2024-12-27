@@ -18,7 +18,8 @@ from .views import (
     logout_view,
     check_in_view,
     check_out_view,
-    attendance_view
+    attendance_view,
+    timer_info
 )
 urlpatterns = [
     path('user/create/', UserView.as_view(), name='user_create'),
@@ -39,5 +40,7 @@ urlpatterns = [
     path('check_in/',check_in_view, name='check_in'),
     path('check_out/',check_out_view, name='check_out'),
     path('attendance/<str:timeframe>',attendance_view,name='attendance'),
+    path('timer_info/',timer_info,name='timer_info'),
+
 
 ]

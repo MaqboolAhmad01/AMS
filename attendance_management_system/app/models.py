@@ -67,6 +67,7 @@ class User(BaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE,null=True,blank=True)
 
+
     def save(self, *args, **kwargs):
         # Check if password is in the fields and is not already hashed
         if self.pk is None or not self._state.adding:  # New or updating instance
@@ -92,6 +93,8 @@ class Attendance(models.Model):
     extra_hours = models.FloatField()
     approved_hours = models.FloatField(default=0.0)
     total_hours = models.FloatField()
+    
+
     def __str__(self):
         return f"{self.user.username} - {self.date}"
     
